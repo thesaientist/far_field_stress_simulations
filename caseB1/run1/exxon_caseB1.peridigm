@@ -92,7 +92,7 @@ Solver1
   Initial Time 0.0
   Final Time {QS_FINAL_TIME}
   QuasiStatic
-    Number of Load Steps {NUMBER_OF_QS_STEPS}
+    Number of Load Steps 1
     Absolute Tolerance 1.0
     Maximum Solver Iterations 100
 Solver2
