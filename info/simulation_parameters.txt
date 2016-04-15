@@ -1,0 +1,31 @@
+* Simulation parameters for cases in Exxon study on HEGF simulation in peridynamics
+
+----------------------
+MATERIAL PROPERTIES:
+----------------------
+Density - 2700 kg/m3 (cgs: 2.7 g/cm3)
+Bulk Modulus - 37.0 GPa (cgs: 3.7e11 dyn/cm2)
+Shear Modulus - 10.0 GPa (cgs: 1.0e11 dyn/cm2)
+Poisson's Ratio - 0.25
+Energy Release Rate (G0) - 298 J/m2
+
+
+***EXXON DOMAIN SIZE: Rock diameter - 30 m, Borehole diameter - 0.6 m (**could vary slightly**), discretization size - varied***
+
+------------------------
+CASES:
+------------------------
+
+***Case A1***
+P0 - 100 MPa, t0 = 10.0 ms, beta/alpha = 1.5 (this ratio gives: alpha = 81.093022, beta = 121.639532)
+Discretization size: varied --> affects Horizon (3*discretization size) and Critical stretch value calculated
+Height of cylindrical reservoir is 4 m
+Application of HEGF on 3*dx above and 3*dx below the center and 3 layers of nodes around wellbore
+No confining stresses
+
+***Case B1***
+P0 - 100 MPa, t0 = 10.0 ms, beta/alpha = 1.5 (this ratio gives: alpha = 81.093022, beta = 121.639532)
+Discretization size: varied --> affects Horizon (3*discretization size) and Critical stretch value calculated
+Height of cylindrical reservoir is 4 m
+Application of HEGF on 3*dx above and 3*dx below the center and 3 layers of nodes around wellbore
+Shmin = SHmax = 10 MPa (isotropic horizontal stresses)
