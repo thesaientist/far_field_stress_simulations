@@ -2,11 +2,11 @@
 
 urr(r,theta) = rb/(4*G)*(sigA*((k-1)*r/rb+2*rb/r) + 2*sigD*cos(2*theta)*(r/rb+(k+1)*rb/r-(rb/r)^3))
 
-utt(r,theta) = (-rb*sigD*sin(2*theta)/(2*G))*(r/rb+(k-1)*rb/r+(rb/r)^3)
+utt(r,theta) = -rb*sigD*sin(2*theta)/(2*G)*(r/rb+(k-1)*rb/r+(rb/r)^3)
 
 ux(x,y) = (urr)*x/(x^2+y^2)^(1/2) - (utt)*y
 
-uy(x,y) = (urr)*y/(x^2+y^2)^(1/2) - (utt)*x
+uy(x,y) = (urr)*y/(x^2+y^2)^(1/2) + (utt)*x
 
 r = (x^2+y^2)^(1/2)
 
