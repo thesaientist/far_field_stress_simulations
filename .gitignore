@@ -6,5 +6,8 @@ caseB1/run1/ExodusII/*
 caseB1/run1/*.e.*
 caseB1/run1/*.e
 
+# mesh txt file and nodeset text files
+caseB1/run1/*.txt
+
 # not needed (old files)
 caseB1/old/*
