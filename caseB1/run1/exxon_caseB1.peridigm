@@ -22,7 +22,7 @@
 #       acceleration  cm/s^2
 #       energy        erg
 
-{MESH_SIZE=20.001}
+{MESH_SIZE=45.001}
 {QS_FINAL_TIME=1.0e-2}
 {FINAL_TIME=2.0e-2}
 {SAFETY_FACTOR=0.80}       # Verlet solver safety factor

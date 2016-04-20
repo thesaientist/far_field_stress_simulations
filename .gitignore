@@ -3,6 +3,8 @@
 
 # too large to push to git
 caseB1/run1/ExodusII/*
+caseB1/run1/*.e.*
+caseB1/run1/*.e
 
 # not needed (old files)
 caseB1/old/*
