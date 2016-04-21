@@ -67,16 +67,24 @@ Boundary Conditions
 Solver1
   Initial Time 0.0
   Final Time {QS_FINAL_TIME}
-  QuasiStatic
-    Number of Load Steps 20
-    Absolute Tolerance 1.0
-    Maximum Solver Iterations 100
+  NOXQuasiStatic
+    Nonlinear Solver "Line Search Based"
+    Number of Load Steps 200
+    Max Solver Iterations 100
+    Relative Tolerance 1.0e-4
+    Direction
+      Method "Newton"
+      Newton
+        Linear Solver
+          Preconditioner "None"
+    Line Search
+      Method "Polynomial"
 
 Output1
   Output File Type "ExodusII"
   Output Filename "exxon_caseB1_QS"
   Output Frequency 1
-  Final Output Step 20
+  Final Output Step 200
   Parallel Write "true"
   Output Variables
     Displacement "true"
