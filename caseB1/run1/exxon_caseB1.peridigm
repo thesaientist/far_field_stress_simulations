@@ -42,14 +42,13 @@ Materials
 Damage Models
   Critical Stretch Model
     Damage Model "Critical Stretch"
-    Critical Stretch 6.1063e-5
+    Critical Stretch 5e-4
 
 Blocks
   Reservoir Block
     Horizon {3.0*MESH_SIZE}
     Block Names "block_1"
     Material "Reservoir"
-    Damage Model "Critical Stretch Model"
 
 Boundary Conditions
   Node Set Two "B1_run1_ns2.txt"
@@ -57,21 +56,22 @@ Boundary Conditions
     Type "Prescribed Displacement"
     Node Set "Node Set Two"
     Coordinate "x"
-    Value "(1-exp(-100*t))*(0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2)"
+    Value "(1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2)"
   In Situ Compression via Displacement y
     Type "Prescribed Displacement"
     Node Set "Node Set Two"
     Coordinate "y"
-    Value "(1-exp(-100*t))*(0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2)"
+    Value "(1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2)"
 
 Solver1
   Initial Time 0.0
   Final Time {QS_FINAL_TIME}
   NOXQuasiStatic
+    Verbose "True"
     Nonlinear Solver "Line Search Based"
-    Number of Load Steps 200
+    Number of Load Steps 5
     Max Solver Iterations 100
-    Relative Tolerance 1.0e-4
+    Relative Tolerance 1.0e-7
     Direction
       Method "Newton"
       Newton
@@ -84,7 +84,7 @@ Output1
   Output File Type "ExodusII"
   Output Filename "exxon_caseB1_QS"
   Output Frequency 1
-  Final Output Step 200
+  Final Output Step 300
   Parallel Write "true"
   Output Variables
     Displacement "true"

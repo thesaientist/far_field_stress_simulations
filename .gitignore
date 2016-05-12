@@ -6,6 +6,12 @@ caseB1/run1/ExodusII/*
 caseB1/run1/*.e.*
 caseB1/run1/*.e
 
+# simulation logs (unnecessary)
+caseB1/run1/logs/*
+
+# animations from simulations (too large)
+caseB1/run1/animations/*
+
 # mesh txt file and nodeset text files
 caseB1/run1/*.txt
 
