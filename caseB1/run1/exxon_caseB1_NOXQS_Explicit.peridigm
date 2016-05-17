@@ -43,7 +43,7 @@ Materials
 Damage Models
   Critical Stretch Model
     Damage Model "Critical Stretch"
-    Critical Stretch 3.0e-4
+    Critical Stretch 3.0e-3
 
 Blocks
   Reservoir Block
@@ -103,7 +103,7 @@ Solver2
   Initial Time {QS_FINAL_TIME}
   Final Time {FINAL_TIME}
   Verlet
-    Fixed dt 1.0e-7
+    Safety Factor {SAFETY_FACTOR}
 
 
 Output1

@@ -20,3 +20,6 @@ caseB1/run1/*.txt
 
 # not needed (old files)
 caseB1/old/*
+
+# other folders in caseB1 except run1 should be ignored
+caseB1/localization_attempt_runs/*
