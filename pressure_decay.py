@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 """ PRESSURE PULSE PARAMETERS """
-P0 = 100                          # Pressure pulse peak pressure (psi)
+P0 = 100                          # Pressure pulse peak pressure (MPa)
 t0 = 1.0e-2                         # Pressure rise time (s)
 #alpha = 5000                           # Decay parameter (/s)
 ratio = 1.5                         # Beta/alpha ratio (decay parameters)

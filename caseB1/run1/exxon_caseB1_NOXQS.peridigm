@@ -1,0 +1,99 @@
+
+#     Description
+#       Simulation of high energy gas fracturing (HEGF) treatment
+#       to a borehole. One pressure pulse, which exponentially decays
+#       after the peak, is applied to a nodeset, which consists of a
+#       portion of the wellbore and two node layers beyond the exposed
+#       surface layer. The case being simulated is the ExxonMobil case B1:
+#
+#       OUTER BOUNDARY is currently not damping nor does it consist a PML.
+#
+#       Confining (far-field) stresses are isotropic (Shmin = SHmax = 1.0e8
+#       dyne/cm^2).
+#
+#     Units are CGS
+#       mass          g
+#       length        cm
+#       time          s
+#       density       g/cm^3
+#       force         dyne
+#       pressure      dyne/cm^2
+#       velocity      cm/s
+#       acceleration  cm/s^2
+#       energy        erg
+
+{MESH_SIZE=45.0001}
+{QS_FINAL_TIME=5.0e-2}
+{SAFETY_FACTOR=0.80}       # Verlet solver safety factor
+
+Verbose "true"
+
+Discretization
+  Type "Text File"
+  Input Mesh File "exxon_caseB1_run1_mesh.txt"
+
+Materials
+  Reservoir
+    Material Model "Elastic"
+    Density 2.70
+    Bulk Modulus 3.7e11
+    Shear Modulus 1.0e11
+
+Damage Models
+  Critical Stretch Model
+    Damage Model "Critical Stretch"
+    Critical Stretch 5.0e-4
+
+Blocks
+  Reservoir Block
+    Horizon {3.0*MESH_SIZE}
+    Block Names "block_1"
+    Material "Reservoir"
+    Damage Model "Critical Stretch Model"
+
+Boundary Conditions
+  Node Set Two "B1_run1_ns2.txt"
+  In Situ Compression via Displacement x
+    Type "Prescribed Displacement"
+    Node Set "Node Set Two"
+    Coordinate "x"
+    Value "(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2)"
+  In Situ Compression via Displacement y
+    Type "Prescribed Displacement"
+    Node Set "Node Set Two"
+    Coordinate "y"
+    Value "(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2)"
+
+Solver1
+  Initial Time 0.0
+  Final Time {QS_FINAL_TIME}
+  NOXQuasiStatic
+    Verbose "True"
+    Nonlinear Solver "Line Search Based"
+    Number of Load Steps 1
+    Max Solver Iterations 100
+    Relative Tolerance 1.0e-7
+    Direction
+      Method "Newton"
+      Newton
+        Linear Solver
+          Preconditioner "None"
+    Line Search
+      Method "Polynomial"
+
+Output1
+  Output File Type "ExodusII"
+  Output Filename "exxon_caseB1_QS"
+  Output Frequency 1
+  Final Output Step 300
+  Parallel Write "true"
+  Output Variables
+    Displacement "true"
+    Velocity "true"
+    Element_Id "true"
+    Proc_Num "true"
+    Force_Density "true"
+    Force "true"
+    Dilatation "true"
+    Volume "true"
+    Damage "true"

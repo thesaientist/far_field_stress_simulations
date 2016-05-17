@@ -24,6 +24,7 @@
 
 {MESH_SIZE=45.0001}
 {QS_FINAL_TIME=5.0e-2}
+{FINAL_TIME=1.0e-1}
 {SAFETY_FACTOR=0.80}       # Verlet solver safety factor
 
 Verbose "true"
@@ -42,26 +43,44 @@ Materials
 Damage Models
   Critical Stretch Model
     Damage Model "Critical Stretch"
-    Critical Stretch 5e-4
+    Critical Stretch 3.0e-4
 
 Blocks
   Reservoir Block
     Horizon {3.0*MESH_SIZE}
     Block Names "block_1"
     Material "Reservoir"
+    Damage Model "Critical Stretch Model"
 
 Boundary Conditions
+  Node Set One "B1_run1_ns1.txt"
   Node Set Two "B1_run1_ns2.txt"
+  Node Set All "B1_run1_allnodes.txt"
+  Pressure Pulse via Displacement BC x
+    Type "Prescribed Displacement"
+    Node Set "Node Set One"
+    Coordinate "x"
+    Value " if(t>{QS_FINAL_TIME})\{ value = (1e7/(2.70*3.7e11)^(1/2))*(100*(exp(-81.093*(t-{QS_FINAL_TIME}))-exp(-121.64*(t-{QS_FINAL_TIME})))/(exp(-81.093*1.0e-2)-exp(-121.64*1.0e-2)))*(x/(x^2+y^2)^(1/2))*(t-{QS_FINAL_TIME}); \}"
+  Pressure Pulse via Displacment BC y
+    Type "Prescribed Displacement"
+    Node Set "Node Set One"
+    Coordinate "y"
+    Value " if(t>{QS_FINAL_TIME})\{ value = (1e7/(2.70*3.7e11)^(1/2))*(100*(exp(-81.093*(t-{QS_FINAL_TIME}))-exp(-121.64*(t-{QS_FINAL_TIME})))/(exp(-81.093*1.0e-2)-exp(-121.64*1.0e-2)))*(y/(x^2+y^2)^(1/2))*(t-{QS_FINAL_TIME}); \}"
+  Plane Strain Constraint in Z
+    Type "Prescribed Displacement"
+    Node Set "Node Set All"
+    Coordinate "z"
+    Value " if(t>{QS_FINAL_TIME})\{ value = 0.0; \}"
   In Situ Compression via Displacement x
     Type "Prescribed Displacement"
     Node Set "Node Set Two"
     Coordinate "x"
-    Value "(1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2)"
+    Value "if(t<={QS_FINAL_TIME})\{ value = (1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2); \} else\{ value = (1-exp(-100*{QS_FINAL_TIME}))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*x/(x^2+y^2)^(1/2); \}"
   In Situ Compression via Displacement y
     Type "Prescribed Displacement"
     Node Set "Node Set Two"
     Coordinate "y"
-    Value "(1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2)"
+    Value "if(t<={QS_FINAL_TIME})\{ value = (1-exp(-100*t))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2); \} else\{ value = (1-exp(-100*{QS_FINAL_TIME}))*(-0.0225*((x^2+y^2)^(1/2)/90+180/(x^2+y^2)^(1/2)))*y/(x^2+y^2)^(1/2); \}"
 
 Solver1
   Initial Time 0.0
@@ -69,7 +88,7 @@ Solver1
   NOXQuasiStatic
     Verbose "True"
     Nonlinear Solver "Line Search Based"
-    Number of Load Steps 5
+    Number of Load Steps 1
     Max Solver Iterations 100
     Relative Tolerance 1.0e-7
     Direction
@@ -79,12 +98,34 @@ Solver1
           Preconditioner "None"
     Line Search
       Method "Polynomial"
+Solver2
+  Verbose "true"
+  Initial Time {QS_FINAL_TIME}
+  Final Time {FINAL_TIME}
+  Verlet
+    Fixed dt 1.0e-7
+
 
 Output1
   Output File Type "ExodusII"
-  Output Filename "exxon_caseB1_QS"
+  Output Filename "exxon_caseB1_NOXQS"
   Output Frequency 1
-  Final Output Step 300
+  Final Output Step 1
+  Parallel Write "true"
+  Output Variables
+    Displacement "true"
+    Velocity "true"
+    Element_Id "true"
+    Proc_Num "true"
+    Force_Density "true"
+    Force "true"
+    Dilatation "true"
+    Volume "true"
+    Damage "true"
+Output2
+  Output File Type "ExodusII"
+  Output Filename "exxon_caseB1_Explicit"
+  Output Frequency 100
   Parallel Write "true"
   Output Variables
     Displacement "true"

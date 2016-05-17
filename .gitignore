@@ -12,6 +12,9 @@ caseB1/run1/logs/*
 # animations from simulations (too large)
 caseB1/run1/animations/*
 
+# validation plots folder
+caseB1/run1/validation_NOXQS_initialization/*
+
 # mesh txt file and nodeset text files
 caseB1/run1/*.txt
 

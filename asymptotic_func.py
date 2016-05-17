@@ -16,6 +16,6 @@ plt.ylabel('Scaling Factor')
 #plt.title('Pulse Pressurization of Borehole')
 plt.xlim([0,t[-1]])
 plt.grid()
-plt.show()
+plt.savefig('scaling.png')
 
 print y[-1]
