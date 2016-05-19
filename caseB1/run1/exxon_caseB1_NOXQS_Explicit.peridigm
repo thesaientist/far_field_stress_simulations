@@ -24,7 +24,7 @@
 
 {MESH_SIZE=45.0001}
 {QS_FINAL_TIME=5.0e-2}
-{FINAL_TIME=1.0e-1}
+{FINAL_TIME=3.0e-1}
 {SAFETY_FACTOR=0.80}       # Verlet solver safety factor
 
 Verbose "true"
@@ -43,7 +43,7 @@ Materials
 Damage Models
   Critical Stretch Model
     Damage Model "Critical Stretch"
-    Critical Stretch 3.0e-4
+    Critical Stretch 3.0e-2
 
 Blocks
   Reservoir Block
@@ -103,7 +103,7 @@ Solver2
   Initial Time {QS_FINAL_TIME}
   Final Time {FINAL_TIME}
   Verlet
-    Fixed dt 1.0e-7
+    Safety Factor {SAFETY_FACTOR}
 
 
 Output1

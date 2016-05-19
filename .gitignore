@@ -5,9 +5,12 @@
 caseB1/run1/ExodusII/*
 caseB1/run1/*.e.*
 caseB1/run1/*.e
+caseB1/localization_attempt_runs/*.e
+caseB1/localization_attempt_runs/*.e.*
 
 # simulation logs (unnecessary)
 caseB1/run1/logs/*
+caseB1/localization_attempt_runs/logs/*
 
 # animations from simulations (too large)
 caseB1/run1/animations/*
